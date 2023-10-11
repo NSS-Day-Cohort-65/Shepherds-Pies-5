@@ -2,6 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import { AuthorizedRoute } from "./auth/AuthorizedRoute";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import Orders from "./Orders/Orders";
+import OrderDetails from "./Orders/OrderDetails";
+
 
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
@@ -12,14 +15,38 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           index
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              Welcome to Shepherd's Pies idiot
+              <Orders />
             </AuthorizedRoute>
           }
         />
         {/* Below: 
         "The Route group create two routes for workorders. 
         The route marked index will match to workorders with no extra url segments. 
-        The create route will match /workorders/create." */}        
+        The create route will match /workorders/create." */}
+        <Route 
+        path="orders"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <Orders />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="orders/:id"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <OrderDetails />
+            </AuthorizedRoute>
+          }
+        />
+           <Route
+          path="orders/create"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              Filler Text
+            </AuthorizedRoute>
+          }
+        />
         <Route
           path="login"
           element={<Login setLoggedInUser={setLoggedInUser} />}
@@ -34,3 +61,22 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   );
 }
  
+/* <Route path="userprofiles">
+          <Route
+            index
+            element={
+              <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+                <UserProfileList />
+              </AuthorizedRoute>
+            }
+          />
+          <Route
+            path="details/:id"
+            element={
+              <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+                <UserProfileDetails />
+              </AuthorizedRoute>
+            }
+          />
+
+        </Route> */
