@@ -13,6 +13,8 @@ export default function OrderList({ setDetailsOrderId }) {
     getAllOrders();
   }, []);
 
+
+
   return (
     <>
       <h2>Orders</h2>
@@ -20,6 +22,7 @@ export default function OrderList({ setDetailsOrderId }) {
         <OrderCard
           order={order}
           key={order.id}
+          getAllOrders={getAllOrders}
         ></OrderCard>
       ))}
     </>
