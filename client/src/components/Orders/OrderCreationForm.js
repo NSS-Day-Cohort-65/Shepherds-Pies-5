@@ -11,9 +11,9 @@ export const OrderCreationForm = () => {
     const [showPart1, setShowPart1] = useState(false);
     const [showPart2, setShowPart2] = useState(false);
     const [userProfiles, setUserProfiles] = useState([])
-    const [selectedEmployeeId, setSelectedEmployeeId] = useState("")
-    const [selectedDriverId, setSelectedDriverId] = useState("")
-    const [selectedTableNumber, setSelectedTableNumber] = useState("")
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState(null)
+    const [selectedDriverId, setSelectedDriverId] = useState(null)
+    const [selectedTableNumber, setSelectedTableNumber] = useState(null)
 
     const navigate = useNavigate()
 
@@ -58,8 +58,6 @@ export const OrderCreationForm = () => {
 
     return <>
         <div className="orderCreationFormContainer">
-        <Button onClick={() => handleButtonClick(1)}>Show Part 1</Button>
-        <Button onClick={() => handleButtonClick(2)}>Show Part 2</Button>
         <div className="orderCreationForm">
             <h2 className="orderFormTitle">Create A New Order</h2>
             <Form>
@@ -77,32 +75,40 @@ export const OrderCreationForm = () => {
                     <option value={userProfile.id} key={userProfile.id}>{userProfile.firstName} {userProfile.lastName}</option>
                     ))}
                     </Input>
+                <h3 className="orderFormTitle">Choose Delivery or Dine In</h3>
+                <Button onClick={() => handleButtonClick(1)}>Delivery</Button>
+                <Button onClick={() => handleButtonClick(2)}>Dine-In</Button>
                 </FormGroup>
-                <FormGroup>
-                    <Label for="driverSelect">Driver</Label>
-                    <Input type="select" 
-                    name="driver" 
-                    value={selectedDriverId}
-                    onChange={(e) => {
-                        setSelectedDriverId(parseInt(e.target.value))}}
-                    >
-                    <option value="0">Choose a Driver</option>
-                    {userProfiles.map((userProfile) => (
-                    <option value={userProfile.id} key={userProfile.id}>{userProfile.firstName} {userProfile.lastName}</option>
-                    ))}
-                    </Input>
+                {showPart1 && (
+                    <FormGroup>
+                        <Label for="driverSelect">Driver</Label>
+                        <Input type="select" 
+                        name="driver" 
+                        value={selectedDriverId}
+                        onChange={(e) => {
+                            setSelectedDriverId(parseInt(e.target.value))}}
+                        >
+                        <option value="0">Choose a Driver</option>
+                        {userProfiles.map((userProfile) => (
+                        <option value={userProfile.id} key={userProfile.id}>{userProfile.firstName} {userProfile.lastName}</option>
+                        ))}
+                        </Input>
                 </FormGroup>
-                <FormGroup>
-                    <Label for="tableNumber">Select Table Number</Label>
-                    <Input 
-                    type="number" 
-                    name="table" 
-                    placeholder="Enter a table number...." 
-                    value={selectedTableNumber}
-                    onChange={(e) => {
-                        setSelectedTableNumber(parseInt(e.target.value))}}      
-                    />
-                </FormGroup>
+                )}
+
+                {showPart2 && (
+                       <FormGroup>
+                       <Label for="tableNumber">Select Table Number</Label>
+                       <Input 
+                       type="number" 
+                       name="table" 
+                       placeholder="Enter a table number...." 
+                       value={selectedTableNumber}
+                       onChange={(e) => {
+                           setSelectedTableNumber(parseInt(e.target.value))}}      
+                       />
+                   </FormGroup>
+                )}
                 <Button type="submit" className="btn btn-primary" onClick={handleFormSubmit}>
                     Create Order
                 </Button>

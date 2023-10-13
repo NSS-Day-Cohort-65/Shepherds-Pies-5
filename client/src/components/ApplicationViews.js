@@ -5,6 +5,7 @@ import Register from "./auth/Register";
 import Orders from "./Orders/Orders";
 import OrderDetails from "./Orders/OrderDetails";
 import { OrderCreationForm } from "./Orders/OrderCreationForm";
+import AddPizzaForm from "./pizzas/AddPizzaForm.js";
 
 
 
@@ -24,8 +25,8 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         "The Route group create two routes for workorders. 
         The route marked index will match to workorders with no extra url segments. 
         The create route will match /workorders/create." */}
-        <Route 
-        path="orders"
+        <Route
+          path="orders"
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <Orders />
@@ -40,11 +41,19 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
             </AuthorizedRoute>
           }
         />
-           <Route
+        <Route
           path="orders/create"
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <OrderCreationForm />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="pizzas/:id/addpizza"
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <AddPizzaForm />
             </AuthorizedRoute>
           }
         />
@@ -61,7 +70,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
     </Routes>
   );
 }
- 
+
 /* <Route path="userprofiles">
           <Route
             index
