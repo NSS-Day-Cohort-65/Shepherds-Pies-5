@@ -11,7 +11,7 @@ export default function AddPizzaForm() {
         pizzaTopping: [],
         // toppings: [],
     });
-    const orderId = useParams();
+    const { id } = useParams();
     const [toppings, setToppings] = useState([]);
     useEffect(() => {
         getToppings().then(setToppings);
@@ -47,8 +47,8 @@ export default function AddPizzaForm() {
     };
 
     const handleSubmit = () => {
-        // You can call the addPizza function with the order ID and the pizza object
-        addPizza(orderId, pizza)
+
+        addPizza(id, pizza)
         // .then(() => {
 
         // });

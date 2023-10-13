@@ -1,6 +1,8 @@
 const apiUrl = "/api/pizza";
 
 export const addPizza = (id, pizza) => {
+    console.log(id)
+
     return fetch(`${apiUrl}/${id}/addpizza`, {
         method: 'POST',
         headers: {
@@ -9,6 +11,7 @@ export const addPizza = (id, pizza) => {
         body: JSON.stringify(pizza),
     })
         .then((response) => {
+            console.log(response)
             console.log('Response status:', response.status); // Log the status code
 
             if (!response.ok) {
