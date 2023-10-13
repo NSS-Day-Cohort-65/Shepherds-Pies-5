@@ -1,8 +1,7 @@
 const apiUrl = "/api/order";
 
-export const getOrders = () =>
-{
-    return fetch(apiUrl).then((res) => res.json())
+export const getOrders = () => {
+  return fetch(apiUrl).then((res) => res.json());
 };
 
 export const getOrderById = (id) => 
@@ -19,3 +18,12 @@ export const createOrder =  (order) => {
           body: JSON.stringify(order),
     }).then((res) => res.json());
 };
+
+
+//^ DELETE - this function deletes an order
+export const deleteThisOrder = (id) => {
+  return fetch(`${apiUrl}/${id}`, {
+    method: "DELETE",
+  });
+};
+ 

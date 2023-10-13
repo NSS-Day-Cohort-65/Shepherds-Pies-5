@@ -9,12 +9,19 @@ import {
 } from "reactstrap";
 
 import { useNavigate } from "react-router-dom";
+import { deleteThisOrder } from "../../managers/orderManager";
 
-
-
-export default function OrderCard({ order }) {
-
+export default function OrderCard({ order, getAllOrders }) {
   const navigate = useNavigate();
+
+  //^ Function to delete an order
+  const deleteOrder = (id) => {
+    // Send an HTTP DELETE request to delete the work order
+    deleteThisOrder(id) // this says, run the deleteThisWorkOrder function on the selected OrderId, which will run the DELETE method on that object in the database
+      .then(() => {
+        getAllOrders();
+      })
+  };
 
   return (
     <Card color="dark" outline style={{ marginBottom: "4px" }}>
@@ -31,10 +38,18 @@ export default function OrderCard({ order }) {
         <Button
           color="dark"
           onClick={() => {
-            navigate(`orders/${order.id}`)
+            navigate(`orders/${order.id}`);
           }}
         >
           Show Details
+        </Button>
+
+        <Button
+          onClick={() => deleteOrder(order.id)}
+          color="danger"
+          style={{ marginLeft: "8px" }} // Add left margin for spacing
+        >
+          Delete Work Order
         </Button>
       </CardBody>
     </Card>
