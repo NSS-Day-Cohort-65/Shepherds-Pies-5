@@ -48,6 +48,18 @@ public class OrderController : ControllerBase
 
         return Ok(order);
     }
+
+    [HttpPost]
+    // [Authorize]
+    public IActionResult CreateOrder(Order order)
+    {
+        order.OrderDate = DateTime.Now;
+        order.Driver = _dbContext.UserProfiles.FirstOrDefault(u => u.Id == order.DriverId);
+        order.Employee = _dbContext.UserProfiles.FirstOrDefault(u => u.Id == order.EmployeeId);
+        _dbContext.Orders.Add(order);
+        _dbContext.SaveChanges();
+        return Created($"/api/order/{order.Id}", order);
+    }
     //^ ENDPOINT = this endpoint is used to delete an order from the list of orders 
     [HttpDelete("{id}")]
     // [Authorize]
@@ -70,3 +82,4 @@ public class OrderController : ControllerBase
         return NoContent();
     }
 }
+

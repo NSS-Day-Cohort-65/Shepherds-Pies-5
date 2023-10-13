@@ -4,6 +4,7 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Orders from "./Orders/Orders";
 import OrderDetails from "./Orders/OrderDetails";
+import { OrderCreationForm } from "./Orders/OrderCreationForm";
 import AddPizzaForm from "./pizzas/AddPizzaForm.js";
 
 
@@ -44,7 +45,7 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           path="orders/create"
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              Filler Text
+              <OrderCreationForm />
             </AuthorizedRoute>
           }
         />
