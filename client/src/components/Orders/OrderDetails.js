@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardTitle, CardSubtitle, CardBody, CardText } from "reactstrap";
-import { getOrderById } from "../../managers/orderManager"; 
-import { useParams } from "react-router-dom";
+import { getOrderById } from "../../managers/orderManager";
+import { useParams, Link } from "react-router-dom";
 
 export default function OrderDetails() {
   const [order, setOrder] = useState({});
@@ -12,7 +12,7 @@ export default function OrderDetails() {
   };
 
   useEffect(() => {
-      getOrderDetails();
+    getOrderDetails();
   }, [id]);
 
   if (!order) {
@@ -37,6 +37,7 @@ export default function OrderDetails() {
           <CardText>Tip: ${order.tip || "N/A"}</CardText>
           <CardText>Table Number: {order.tableNumber || "N/A"}</CardText>
         </CardBody>
+        <Link to={`/pizzas/${order.id}/addpizza`}>Add Pizza</Link>
       </Card>
       <h4>Pizzas</h4>
       {order?.pizzas?.map((pizza, index) => (
@@ -54,7 +55,7 @@ export default function OrderDetails() {
             <CardText>Toppings: {pizza?.pizzaToppings?.map((pizzaTopping) => (
               <div key={pizzaTopping.topping.id}>
                 {pizzaTopping.topping.title}
-              </div> 
+              </div>
             ))}</CardText>
           </CardBody>
         </Card>
