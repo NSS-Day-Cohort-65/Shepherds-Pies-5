@@ -23,7 +23,7 @@ public IActionResult Get()
         return Ok(_dbContext.Orders.ToList());
     }
   [HttpGet("{id}")]
-    // [Authorize]
+    [Authorize]
     public IActionResult GetById(int id)
     {
         Order order = _dbContext
@@ -47,5 +47,17 @@ public IActionResult Get()
         }
 
         return Ok(order);
+    }
+
+    [HttpPost]
+    // [Authorize]
+    public IActionResult CreateOrder(Order order)
+    {
+        order.OrderDate = DateTime.Now;
+        order.Driver = _dbContext.UserProfiles.FirstOrDefault(u => u.Id == order.DriverId);
+        order.Employee = _dbContext.UserProfiles.FirstOrDefault(u => u.Id == order.EmployeeId);
+        _dbContext.Orders.Add(order);
+        _dbContext.SaveChanges();
+        return Created($"/api/order/{order.Id}", order);
     }
 }
